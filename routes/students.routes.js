@@ -8,17 +8,10 @@ const {
   updateStudent,
   deleteStudent,
 } = require("../controllers/student.controllers");
+const checkAuth = require("../middleware/check-auth.middleware");
 
-const checkAuth = (req, res, next)=>{
-  if(req.headers.token !== "1234567"){
-    res.status(401).json({
-      message: "Unauthorized Access"
-    });
-    return ;
-  }
-  next();
-}
-router.get("/", checkAuth, getStudents);
+
+router.get("/",  checkAuth, getStudents);
 router.get("/:id", checkAuth, getStudentsById);
 router.post("/", checkAuth, addStudents);
 router.patch("/:id", checkAuth, updateStudent);

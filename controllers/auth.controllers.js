@@ -1,11 +1,13 @@
 const Student = require("../models/student.models");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET_KEY } = require("../config/constants");
 
 const signUp = async (req, res) => {
   try {
     const { password, ...remaining } = req.body;
-    const user = await Student.findOne({ email: req.body.email });
-    if (user) {
+    const student = await Student.findOne({ email: req.body.email });
+    if (student) {
       res.status(401).json({
         message: "User already Exit",
       });
@@ -28,31 +30,42 @@ const signUp = async (req, res) => {
 };
 
 const signIn = async (req, res) => {
-  try {
-    const user = await Student.findOne({ email: req.body.email });
-    if (!user) {
-      res.status(404).json({
-        message: "Invalid Credentials",
-      });
-      return;
-    }
-    const isValidPassword = bcrypt.compareSync(
-      req.body.password,
-      user.password
-    );
-    if (isValidPassword) {
-      res.status(200).json({
-        message: "Successsfully sign in",
-        token : "1234567"
-      });
-      return;
-    }
-    
-  } catch (error) {
-    res.status(400).json({
-      message: "Error Detected SignIn",
+  const student = await Student.findOne({ email: req.body.email });
+
+  if (!student) {
+    res.status(404).json({
+      message: "Invalid Credentials",
     });
+    return;
   }
+
+  const isValidPassword = bcrypt.compareSync(
+    req.body.password,
+    student.password
+  );
+
+  if (isValidPassword) {
+    const token = jwt.sign(
+      {
+        _id: student._id,
+        name: student.name,
+        email: student.email,
+      },
+      JWT_SECRET_KEY,
+      {
+        expiresIn: "2days",
+      }
+    );
+    res.status(200).json({
+      message: "Successsfully sign in",
+      token,
+    });
+    return;
+  }
+  res.status(400).json({
+    message: "Error Detected SignIn",
+    data: error.message,
+  });
 };
 
 module.exports = {
