@@ -43,9 +43,11 @@ const signIn = async (req, res) => {
     if (isValidPassword) {
       res.status(200).json({
         message: "Successsfully sign in",
+        token : "1234567"
       });
       return;
     }
+    
   } catch (error) {
     res.status(400).json({
       message: "Error Detected SignIn",
