@@ -8,13 +8,14 @@ const {
   updateStudent,
   deleteStudent,
 } = require("../controllers/student.controllers");
-const checkAuth = require("../middleware/check-auth.middleware");
+const checkAdminAuth = require("../middleware/adminCheck.middleware");
 
 
-router.get("/",  checkAuth, getStudents);
-router.get("/:id", checkAuth, getStudentsById);
-router.post("/", checkAuth, addStudents);
-router.patch("/:id", checkAuth, updateStudent);
-router.delete("/:id", checkAuth, deleteStudent);
+
+router.get("/",  checkAdminAuth, getStudents);
+router.get("/:id", checkAdminAuth,  getStudentsById);
+router.post("/", checkAdminAuth, addStudents);
+router.patch("/:id", checkAdminAuth, updateStudent);
+router.delete("/:id", checkAdminAuth, deleteStudent);
 
 module.exports = router;

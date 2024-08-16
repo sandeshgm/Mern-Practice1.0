@@ -16,16 +16,20 @@ const studentSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: false
     },
     password: {
         type: String,
-        required: true,
+        required: false,
     },
     gender: {
         type: String,
         enum: ["male","female"]
-    }  
+    },
+    admin : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref : "Principle"
+    } 
 },{timestamps: true}
 );
 

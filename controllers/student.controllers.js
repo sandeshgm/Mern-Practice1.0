@@ -32,7 +32,15 @@ const getStudentsById = async(req,res)=>{
 };
 const addStudents = async (req,res)=>{
     try {
-        await Student.create(req.body);
+        await Student.create({
+            name: req.body.name,
+            age: req.body.age,
+            address: req.body.address,
+            email: req.body.email,
+            password:req.body.password,
+            gender: req.body.gender,
+            admin : req.authAdmin._id
+        });
         res.status(200).json({
             message: "Adding Data Successfully",
         })
