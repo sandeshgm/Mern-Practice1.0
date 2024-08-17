@@ -9,6 +9,9 @@ const authRoutes = require('./routes/auth.routes');
 const libraryRoutes = require('./routes/library.routes');
 const principleRoutes = require('./routes/principle.routes');
 const adminRoutes = require('./routes/adminAuth.routes');
+const ceoAdminRoutes = require('./routes/ceoAdminRoutes');
+const managerRoutes = require('./routes/manager.routes');
+const managerAuthRoutes = require('./routes/managerAuth.routes');
 connectDb();
 
 app.use("/students", studentRoutes);
@@ -17,6 +20,10 @@ app.use("/libraries", libraryRoutes);
 
 app.use("/adminAuth",adminRoutes);
 app.use("/principles", principleRoutes);
+
+app.use("/superAdmin", ceoAdminRoutes);
+app.use("/managers", managerRoutes);
+app.use("/managerAuth", managerAuthRoutes);
 
 
 app.all("*", (req, res) => {

@@ -5,7 +5,11 @@ const productSchema = new mongoose.Schema({
     price : Number,
     description : String,
     availability : String,
-    rating : String
+    rating : String,
+    manager : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "Manager"
+    }
 },{timestamps : true});
 
 const Customer = mongoose.model("Customer", customerSchema );
