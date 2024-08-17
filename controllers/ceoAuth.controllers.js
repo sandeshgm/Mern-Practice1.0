@@ -38,7 +38,7 @@ const superAdminSignIn = async (req, res) => {
     const superAdmin = await Ceo.findOne({ email: req.body.email });
     if (!superAdmin) {
       res.status(401).json({
-        message: "Super Admin doesnt exist",
+        message: "Unauthorized access",
       });
       return;
     }
