@@ -2,15 +2,16 @@ const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
   {
+    manager: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Manager",
+    },
     name: String,
     price: Number,
     description: String,
     availability: String,
     rating: String,
-    manager: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Manager",
-    },
+    
   },
   { timestamps: true }
 );
