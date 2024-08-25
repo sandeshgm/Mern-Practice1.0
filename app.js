@@ -1,4 +1,5 @@
 const express = require("express");
+require("express-async-errors");
 const app = express();
 const port = 3003;
 app.use(express.json());
@@ -34,6 +35,13 @@ app.use("/products", productRoutes);
 app.all("*", (req, res) => {
   res.status(404).json({
     message: "Route not Found",
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).json({
+    message: "Something went wrong",
   });
 });
 

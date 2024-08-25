@@ -6,7 +6,7 @@ const signUpValidate = [
     .withMessage("Please enter your name."),
     body('email').notEmpty().isEmail()
     .withMessage("Please enter your email address.."),
-    body('password').notEmpty().isStrongPassword()
+    body('password').notEmpty()
     .withMessage("At least 1 uppercase, 1 lowercase, 1 number, 1 special characters and 8 characters length is required.."),
     validate
 ];
