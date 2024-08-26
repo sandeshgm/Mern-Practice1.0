@@ -8,9 +8,10 @@ const {
 const checkSuperAdmin = require("../middleware/superAdmin.middleware");
 const paginationValidate = require("../validation/pagination.validation");
 const idValidate = require("../validation/idValidation");
+const managerSearchValidate = require("../validation/managerSearch.validation");
 const router = express.Router();
 
-router.get("/", checkSuperAdmin, paginationValidate, getAllManagers);
+router.get("/", checkSuperAdmin,managerSearchValidate, paginationValidate, getAllManagers);
 router.get("/:id", checkSuperAdmin, idValidate, getManagerById);
 router.patch("/:id", checkSuperAdmin, idValidate, updateManager);
 router.delete("/:id", checkSuperAdmin, idValidate, deleteManager);

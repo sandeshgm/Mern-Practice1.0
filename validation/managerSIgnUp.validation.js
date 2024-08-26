@@ -1,7 +1,7 @@
 const { body } = require('express-validator');
 const validate = require('../middleware/validation.middleware');
 
-const signUpValidate = [
+const managerSignUpValidate = [
     body('name').notEmpty().isLength({min:3, max:50})
     .withMessage("Please enter your name."),
     body('email').notEmpty().isEmail()
@@ -12,4 +12,4 @@ const signUpValidate = [
 ];
 
 
-module.exports = signUpValidate;
+module.exports = managerSignUpValidate;
